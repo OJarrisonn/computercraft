@@ -1,22 +1,35 @@
-function setScreen(side)
+--{ Maded by: GamerJhPlays               }--
+--{ Graphic api for computercraft 1.80   }--
+--{ Free to use                          }--
+
+function setScreen(side)                             --Sets default screen
     screen = peripheral.wrap(side)
     end
 
-function defaultBackground(c)
+function setPixelSize(size)                          --Sets size of screen pixels and clear screen
+	screen.setTextScale(size)
+	clearScreen()
+	end
+
+function defaultBackground(c)                        --Sets default background color for use in clearScreen()
     dfbg = c
     end
 
-function clearScreen()
+function setBackgroundColor(c)                       --Changes background color
+	screen.setBackgroundColor(c)
+	end
+
+function clearScreen()                               --Clears screen and set to default background color
     screen.setBackgroundColor(dfbg)
     screen.clear()
     end
 	
-function getSize()
+function getSize()                                   --Returns size of screen
 	   size = screen.getSize()
 	   return size
     end
     
-function testScreen()
+function testScreen()                                --Tests screen with every colors
     screen.setBackgroundColor(colors.white)
     screen.clear()
 	   sleep(1)
@@ -67,7 +80,7 @@ function testScreen()
 	   sleep(1)
     end
 
-function drawRect(x1,y1,x2,y2,c)
+function drawRect(x1,y1,x2,y2,c)                     --Draw a rectangle in screen (x2 needs be greater then x1 and y2 needs be greater then y1
     for x = x1, x2 do
         for y = y1, y2 do
             screen.setCursorPos(x,y)
@@ -78,15 +91,31 @@ function drawRect(x1,y1,x2,y2,c)
         end
     end
 
-function drawPixel(x,y,c)
+function drawPixel(x,y,c)                            --Draw a single pixel in the specified coodinates
     screen.setCursorPos(x,y)
     screen.setBackgroundColor(c)
     screen.write(' ')
     screen.setBackgroundColor(dfbg)
     end
 	
-function write(x,y,c,msg)
+function write(x,y,c,msg)                            --Write a message on screen
 	   screen.setTextColor(c)
   	 screen.setCursorPos(x,y)
 	   screen.write(msg)
     end
+    
+function getTouch()                                  --Gets touched point in screen
+    e, s, xPos, yPos = os.pullEvent('monitor_touch')
+    return xPos, yPos
+    end
+	
+function turnoff()                                   --Clear the screen and end the program
+	clearScreen()
+	screen.setCursorPos(1,1)
+	screen.setTextColor(colors.green)
+	screen.write('Good bye...')
+	sleep(0.5)
+	clearScreen()
+	exit()
+	end
+
