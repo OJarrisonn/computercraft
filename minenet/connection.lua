@@ -14,7 +14,7 @@ local function getModem()-- get one connected modem
     return modem
 end
 
-local function sendRequest(from, request)-- sends a request and wait response
+function sendRequest(from, request)-- sends a request and wait response
     rednet.broadcast({{UNIT["name"], request}}, from)
     id, message, protocol = rednet.receive(UNIT["name"])
     return message
